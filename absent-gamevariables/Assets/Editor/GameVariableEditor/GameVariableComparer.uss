@@ -1,0 +1,23 @@
+.container {
+	flex-direction: row;
+	align-items: flex-start;
+	align-self: stretch;
+	flex-shrink: 1;
+	max-width: 300px;
+}
+
+.bankSelector {
+	max-width: 80px;
+}
+
+.varSelector {
+	max-width: 100px;
+}
+
+.compSelector {
+	max-width: 30px;
+}
+
+.valueField {
+	max-width: 50px;
+}

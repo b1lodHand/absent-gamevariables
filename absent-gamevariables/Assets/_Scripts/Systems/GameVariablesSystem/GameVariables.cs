@@ -27,10 +27,46 @@ namespace com.absence.gamevariables
             Debug.Log(m_activeVariableBank.name);
         }
 
-        public static int? GetInt(string variableName) => ActiveVariableBank.GetInt(variableName);
-        public static float? GetFloat(string variableName) => ActiveVariableBank.GetFloat(variableName);
-        public static string GetString(string variableName) => ActiveVariableBank.GetString(variableName);
-        public static bool? GetBoolean(string variableName) => ActiveVariableBank.GetBoolean(variableName);
+        public static bool TryGetInt(string variableName, out GameVariable_Integer value)
+        {
+            value = null;
+
+            var found = ActiveVariableBank.GetInt(variableName);
+            if (found == null) return false;
+
+            value = found;
+            return true;
+        }
+        public static bool TryGetFloat(string variableName, out GameVariable_Float value)
+        {
+            value = null;
+
+            var found = ActiveVariableBank.GetFloat(variableName);
+            if (found == null) return false;
+
+            value = found;
+            return true;
+        }
+        public static bool TryGetString(string variableName, out GameVariable_String value)
+        {
+            value = null;
+
+            var found = ActiveVariableBank.GetString(variableName);
+            if (found == null) return false;
+
+            value = found;
+            return true;
+        }
+        public static bool TryGetBoolean(string variableName, out GameVariable_Boolean value)
+        {
+            value = null;
+
+            var found = ActiveVariableBank.GetBoolean(variableName);
+            if (found == null) return false;
+
+            value = found;
+            return true;
+        }
 
         public static bool SetInt(string variableName, int newValue) => ActiveVariableBank.SetInt(variableName, newValue);
         public static bool SetFloat(string variableName, float newValue) => ActiveVariableBank.SetFloat(variableName, newValue);

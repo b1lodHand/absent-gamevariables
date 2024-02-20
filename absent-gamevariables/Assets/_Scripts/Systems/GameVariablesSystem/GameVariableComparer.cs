@@ -30,7 +30,7 @@ namespace com.absence.gamevariables
             if (TargetVariableName == GameVariableBank.Null) return true;
 
             if (TargetBank.HasString(TargetVariableName))
-                return TargetBank.GetString(TargetVariableName) == StringValue;
+                return TargetBank.GetString(TargetVariableName).Value == StringValue;
             else if (TargetBank.HasBoolean(TargetVariableName))
                 return TargetBank.GetBoolean(TargetVariableName).Value == BoolValue;
             else if (TargetBank.HasInt(TargetVariableName))

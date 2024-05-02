@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.absence.variablesystem": {
+      "version": "https://github.com/b1lodHand/absent-variables.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "650f14e3158f1d48999092951035a2304847c552"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.4",
       "depth": 1,

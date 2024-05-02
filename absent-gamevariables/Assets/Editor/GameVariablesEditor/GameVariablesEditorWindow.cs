@@ -1,106 +1,113 @@
-using com.absence.gamevariables;
+using com.absence.variablesystem;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-public class GameVariablesEditorWindow : EditorWindow
+namespace com.absence.gamevariables.Editor
 {
-    public static GameVariableBank TargetBank;
-    static Vector2 m_scrollPos;
-
-    Editor m_bankEditor;
-
-    [MenuItem("Game/GameVariables")]
-    static void ShowWindow()
+    public class GameVariablesEditorWindow : EditorWindow
     {
-        var window = EditorWindow.GetWindow<GameVariablesEditorWindow>();
-        window.titleContent = new GUIContent() {
-            image = EditorGUIUtility.IconContent("d_UnityEditor.GameView").image,
-            text = "GameVariables"
-        };
-    }
+        public static VariableBank TargetBank;
+        static Vector2 m_scrollPos;
 
-    [OnOpenAsset]
-    static bool OnOpenAsset(int instanceId, int line)
-    {
-        if (Selection.activeObject != TargetBank) return false;
+        UnityEditor.Editor m_bankEditor;
 
-        ShowWindow();
-        return true;
-    }
-
-    private void OnGUI()
-    {
-        Undo.RecordObject(this, "GameVariables (Editor)");
-
-        TryToFindDefaultBank();
-
-        if(TargetBank == null)
+        [MenuItem("absencee_/absent-gamevariables/Open GameVariables Window")]
+        static void ShowWindow()
         {
-            if(GUILayout.Button(new GUIContent() { image = EditorGUIUtility.IconContent("d_ToolHandleLocal").image, 
-                text = "Create the default bank for GameVariables" }))
+            var window = EditorWindow.GetWindow<GameVariablesEditorWindow>();
+            window.titleContent = new GUIContent()
             {
-                CreateDefaultBank();
-            }
-
-            EditorGUILayout.HelpBox("There is no default bank for GameVariables to edit here. Create one with the button above to continue.", MessageType.Warning);
+                image = EditorGUIUtility.IconContent("d_UnityEditor.GameView").image,
+                text = "GameVariables"
+            };
         }
 
-        else
+        [OnOpenAsset]
+        static bool OnOpenAsset(int instanceId, int line)
         {
-            EditorGUILayout.BeginHorizontal();
+            if (Selection.activeObject != TargetBank) return false;
 
-            GUI.enabled = false;
-            EditorGUILayout.ObjectField("Default Bank: ", TargetBank, typeof(GameVariableBank), allowSceneObjects: false);
-            GUI.enabled = true;
-
-            if (GUILayout.Button(new GUIContent { image = EditorGUIUtility.IconContent("d_Toolbar Minus").image }))
-            {
-                DestroyDefaultBank();
-            }
-
-            EditorGUILayout.EndHorizontal();
+            ShowWindow();
+            return true;
         }
 
-        EditorUtility.SetDirty(this);
+        private void OnGUI()
+        {
+            Undo.RecordObject(this, "GameVariables (Editor)");
 
-        if (TargetBank == null) return;
+            TryToFindDefaultBank();
 
-        Undo.RecordObject(TargetBank, "GameVariables (Bank)");
+            if (TargetBank == null)
+            {
+                if (GUILayout.Button(new GUIContent()
+                {
+                    image = EditorGUIUtility.IconContent("d_ToolHandleLocal").image,
+                    text = "Create the default bank for GameVariables"
+                }))
+                {
+                    CreateDefaultBank();
+                }
 
-        m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
+                EditorGUILayout.HelpBox("There is no default bank for GameVariables to edit here. Create one with the button above to continue.", MessageType.Warning);
+            }
 
-        if (!m_bankEditor) Editor.CreateCachedEditor(TargetBank, null, ref m_bankEditor);
-        else m_bankEditor.OnInspectorGUI();
+            else
+            {
+                EditorGUILayout.BeginHorizontal();
 
-        EditorGUILayout.EndScrollView();
+                GUI.enabled = false;
+                EditorGUILayout.ObjectField("Default Bank: ", TargetBank, typeof(VariableBank), allowSceneObjects: false);
+                GUI.enabled = true;
 
-        EditorUtility.SetDirty(TargetBank);
-    }
+                if (GUILayout.Button(new GUIContent { image = EditorGUIUtility.IconContent("d_Toolbar Minus").image }))
+                {
+                    DestroyDefaultBank();
+                }
 
-    private void DestroyDefaultBank()
-    {
-        Undo.DestroyObjectImmediate(TargetBank);
-        TargetBank = null;
-        m_bankEditor = null;
-    }
+                EditorGUILayout.EndHorizontal();
+            }
 
-    private void TryToFindDefaultBank()
-    {
-        var foundGuid = AssetDatabase.FindAssets("t:GameVariableBank l:GameVariables").ToList().FirstOrDefault();
-        if (foundGuid != null) TargetBank =
-                AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(foundGuid), typeof(GameVariableBank)) as GameVariableBank;
-        else TargetBank = null;
-    }
+            EditorUtility.SetDirty(this);
 
-    private void CreateDefaultBank()
-    {
-        var bankCreated = ScriptableObject.CreateInstance<GameVariableBank>();
-        AssetDatabase.CreateAsset(bankCreated, "Assets/Resources/GameVariables.asset");
-        AssetDatabase.SetLabels(bankCreated, new string[] { "GameVariables" });
-        AssetDatabase.Refresh();
+            if (TargetBank == null) return;
 
-        TargetBank = bankCreated;
+            Undo.RecordObject(TargetBank, "GameVariables (Bank)");
+
+            m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
+
+            if (!m_bankEditor) UnityEditor.Editor.CreateCachedEditor(TargetBank, null, ref m_bankEditor);
+            else m_bankEditor.OnInspectorGUI();
+
+            EditorGUILayout.EndScrollView();
+
+            EditorUtility.SetDirty(TargetBank);
+        }
+
+        private void DestroyDefaultBank()
+        {
+            Undo.DestroyObjectImmediate(TargetBank);
+            TargetBank = null;
+            m_bankEditor = null;
+        }
+
+        private void TryToFindDefaultBank()
+        {
+            var foundGuid = AssetDatabase.FindAssets("t:GameVariableBank l:GameVariables").ToList().FirstOrDefault();
+            if (foundGuid != null) TargetBank =
+                    AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(foundGuid), typeof(VariableBank)) as VariableBank;
+            else TargetBank = null;
+        }
+
+        private void CreateDefaultBank()
+        {
+            var bankCreated = ScriptableObject.CreateInstance<VariableBank>();
+            AssetDatabase.CreateAsset(bankCreated, "Assets/Resources/GameVariables.asset");
+            AssetDatabase.SetLabels(bankCreated, new string[] { "GameVariables" });
+            AssetDatabase.Refresh();
+
+            TargetBank = bankCreated;
+        }
     }
 }

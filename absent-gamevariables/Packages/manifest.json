@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.absence.savesystem": "https://github.com/b1lodHand/absent-saves.git",
     "com.absence.variablesystem": "https://github.com/b1lodHand/absent-variables.git",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.2d": "2.0.0",

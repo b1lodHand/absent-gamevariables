@@ -1,11 +1,18 @@
 {
   "dependencies": {
+    "com.absence.savesystem": {
+      "version": "https://github.com/b1lodHand/absent-saves.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "227d865c3608448da4aeab4b6b6c40288bf2e574"
+    },
     "com.absence.variablesystem": {
       "version": "https://github.com/b1lodHand/absent-variables.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "650f14e3158f1d48999092951035a2304847c552"
+      "hash": "40ddcda996ac70f03bbea6f335cd11afc22706e2"
     },
     "com.unity.2d.animation": {
       "version": "9.0.4",

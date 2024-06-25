@@ -17,7 +17,7 @@ namespace com.absence.gamevariables.editor
 
         static Editor m_bankEditor; 
 
-        [MenuItem("absencee_/absent-gamevariables/Open GameVariables Window")]
+        [MenuItem("absencee_/absent-gv/Open GameVariables Window")]
         static void ShowWindow()
         {
             var window = EditorWindow.GetWindow<GameVariablesEditorWindow>();

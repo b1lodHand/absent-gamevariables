@@ -24,13 +24,6 @@ namespace com.absence.gamevariables.editor
                 GameVariablesBootstrapper.OnUnloadResources += VariableBankDatabase.Refresh;
             }
         }
-
-        [MenuItem("absencee_/Testing/Print Bank List")]
-        static void PrintBankList()
-        {
-            VariableBankDatabase.Refresh();
-            VariableBankDatabase.BanksInAssets.ForEach(bank => Debug.Log($"{bank.name} : {bank.Guid}"));
-        }
     }
 
 }

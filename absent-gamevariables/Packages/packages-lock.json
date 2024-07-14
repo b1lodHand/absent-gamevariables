@@ -5,14 +5,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "227d865c3608448da4aeab4b6b6c40288bf2e574"
+      "hash": "689436079f6a121022536e02c85edb1ba2b39193"
     },
     "com.absence.variablesystem": {
       "version": "https://github.com/b1lodHand/absent-variables.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "40ddcda996ac70f03bbea6f335cd11afc22706e2"
+      "hash": "d4dee30f00de201e768460b563cbd060902ae7a2"
     },
     "com.unity.2d.animation": {
       "version": "9.0.4",

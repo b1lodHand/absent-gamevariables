@@ -167,7 +167,7 @@ namespace com.absence.gamevariables.editor
             EditorPrefs.SetString(Constants.GAMEVARIABLES_GUID_PREF_NAME, bankCreated.Guid);
             GameVariables.EditorBankGuid = bankCreated.Guid;
 
-            bankCreated.ForExternalUse = true;
+            bankCreated.ForExternalUse = false;
 
             VariableBankDatabase.Refresh();
 

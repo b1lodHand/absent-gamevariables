@@ -1,5 +1,6 @@
+using com.absence.variablebanks;
+using com.absence.variablebanks.internals;
 using com.absence.variablesystem;
-using System;
 using UnityEngine;
 
 namespace com.absence.gamevariables.internals
@@ -11,11 +12,6 @@ namespace com.absence.gamevariables.internals
     public static class GameVariablesBootstrapper
     {
         const bool DEBUG_MODE = true;
-
-        /// <summary>
-        /// The action which will get invoked when this class unloads the GameVariables bank asset after loading and cloning it.
-        /// </summary>
-        public static event Action OnUnloadResources = null;
 
         static bool m_initialized = false;
 
@@ -29,31 +25,27 @@ namespace com.absence.gamevariables.internals
         {
             m_initialized = false;
 
-            VariableBank loadedBank = Resources.Load<VariableBank>(Constants.GAMEVARIABLES_BANK_PATH_RUNTIME);
-
-            if (loadedBank == null)
+            VariableBanksCloningHandler.AddCloningCompleteCallbackOrInvoke(() =>
             {
-                Resources.UnloadAsset(loadedBank);
-                Debug.LogWarning("There are no banks for GameVariables found in the project.");
-                return;
-            }
+                VariableBank clonedBank = VariableBankManager.GetInstance(GameVariables.EditorBankGuid);
 
-            VariableBank clonedBank = (loadedBank as VariableBank).Clone();
-            Resources.UnloadAsset(loadedBank);
+                if (clonedBank == null)
+                {
+                    Debug.LogWarning("There are no banks for GameVariables found in the project.");
+                    return;
+                }
 
-            OnUnloadResources?.Invoke();
-            OnUnloadResources = null;
+                GameVariables.SetRuntimeBank(clonedBank);
 
-            GameVariables.SetRuntimeBank(clonedBank);
-
-            GameVariablesSceneEventsHandler gameVariablesSceneEventsHandler = new GameObject("GV Scene Events Handler [absent-gv]").
+                GameVariablesSceneEventsHandler gameVariablesSceneEventsHandler = new GameObject("GV Scene Events Handler [absent-gv]").
                 AddComponent<GameVariablesSceneEventsHandler>();
 
-            GameObject.DontDestroyOnLoad(gameVariablesSceneEventsHandler);
+                GameObject.DontDestroyOnLoad(gameVariablesSceneEventsHandler);
 
-            m_initialized = true;
+                m_initialized = true;
 
-            if (DEBUG_MODE) Debug.Log("<color=white>GameVariables initialized successfully.</color>");
+                if (DEBUG_MODE) Debug.Log("<color=white>GameVariables initialized successfully.</color>");
+            });
         }
     }
 

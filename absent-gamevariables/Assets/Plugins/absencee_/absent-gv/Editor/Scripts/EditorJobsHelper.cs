@@ -18,11 +18,6 @@ namespace com.absence.gamevariables.editor
             GameVariables.EditorBankGuid = guid;
 
             if (GameVariablesBootstrapper.Initialized) VariableBankDatabase.Refresh();
-            else
-            {
-                GameVariablesBootstrapper.OnUnloadResources -= VariableBankDatabase.Refresh;
-                GameVariablesBootstrapper.OnUnloadResources += VariableBankDatabase.Refresh;
-            }
         }
     }
 

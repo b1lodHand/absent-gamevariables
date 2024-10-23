@@ -6,7 +6,7 @@ namespace com.absence.gamevariables.internals
     public static class Constants
     {
         public const string GAMEVARIABLES_BANK_NAME = "GameVariables";
-        public const string GAMEVARIABLES_FOLDER_NAME = "absent-gamevariables";
+        public const string GAMEVARIABLES_FOLDER_NAME = "VariableBanks";
         public const string RESOURCES_PATH = "Assets/Resources";
 
         public const string GAMEVARIABLES_GUID_PREF_NAME = "gamevariables-guid";

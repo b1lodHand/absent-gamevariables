@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,14 +153,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_comparers:
   - m_comparisonType: 2
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
     m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
     m_stringValue: 
     m_boolValue: 0
   - m_comparisonType: 2
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
+    m_intValue: 0
+    m_floatValue: 0
+    m_stringValue: 
+    m_boolValue: 0
+  - m_comparisonType: 2
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
     m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
@@ -169,29 +175,36 @@ MonoBehaviour:
     m_boolValue: 0
   m_setters:
   - m_setType: 0
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
-    m_targetVariableName: 'int: ex_int'
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
     m_stringValue: 
     m_boolValue: 0
   - m_setType: 0
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
-    m_targetVariableName: 'float: ex_float'
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
     m_stringValue: 
     m_boolValue: 0
   - m_setType: 0
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
-    m_targetVariableName: 'string: ex_string'
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
     m_stringValue: 
     m_boolValue: 0
   - m_setType: 0
-    m_targetBankGuid: f8079ce1-b6b1-430f-857b-e35dc1fad947
-    m_targetVariableName: 'bool: ex_boolean'
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
+    m_intValue: 0
+    m_floatValue: 0
+    m_stringValue: 
+    m_boolValue: 0
+  - m_setType: 0
+    m_targetBankGuid: a5a794f4-9a37-4349-ba73-5aa057b558d3
+    m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
     m_stringValue: 

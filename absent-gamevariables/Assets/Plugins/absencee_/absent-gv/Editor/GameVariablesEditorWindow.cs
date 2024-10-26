@@ -1,6 +1,7 @@
 using com.absence.gamevariables.internals;
 using com.absence.variablesystem;
 using com.absence.variablesystem.editor;
+using System;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -68,10 +69,21 @@ namespace com.absence.gamevariables.editor
                 EditorGUILayout.ObjectField("GameVariables Bank: ", m_targetBank, typeof(VariableBank), allowSceneObjects: false);
                 GUI.enabled = true;
 
-                if (GUILayout.Button(new GUIContent { image = EditorGUIUtility.IconContent("d_Toolbar Minus").image }))
+                if (Application.isPlaying) GUI.enabled = false;
+
+                Color normalColor = GUI.backgroundColor;
+                //GUI.backgroundColor = new Color(171f / 255f, 68f / 255f, 63f / 255f, 1f);
+                GUI.backgroundColor = Color.red;
+
+                GUIStyle buttonStyle = new(GUI.skin.button);
+
+                if (GUILayout.Button(new GUIContent { tooltip = "Delete GameVariables bank.", image = EditorGUIUtility.IconContent("d_Toolbar Minus").image }, buttonStyle, GUILayout.ExpandWidth(false), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
                 {
-                    DestroyDefaultBank();
+                    OpenDestroyDialog();
                 }
+
+                GUI.backgroundColor = normalColor;
+                GUI.enabled = true;
 
                 EditorGUILayout.EndHorizontal();
             }
@@ -111,6 +123,17 @@ namespace com.absence.gamevariables.editor
 
             if(EditorGUI.EndChangeCheck()) EditorUtility.SetDirty(m_targetBank);
 
+        }
+
+        private void OpenDestroyDialog()
+        {
+            bool destroy = EditorUtility.DisplayDialog("Delete GameVariables bank?", 
+                "You are deleting the bank associated with absent-gv. Are you sure you want to progress?" +
+                "\n\n(You can't undo this action.)", "Delete", "Cancel");
+
+            if (!destroy) return;
+
+            DestroyDefaultBank();
         }
 
         private static void DestroyDefaultBank()

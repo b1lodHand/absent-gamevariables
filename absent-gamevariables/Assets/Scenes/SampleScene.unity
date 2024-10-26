@@ -151,8 +151,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd86cca8c9f6bb4b97aad677886c210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comparers: []
-  m_setters: []
+  m_comparers:
+  - m_comparisonType: 2
+    m_targetBankGuid: 7edf8885-4e37-4ffb-9cd5-9b862d396c8f
+    m_targetVariableName: 'null: null'
+    m_intValue: 0
+    m_floatValue: 0
+    m_stringValue: 
+    m_boolValue: 0
+  m_setters:
+  - m_setType: 0
+    m_targetBankGuid: 7edf8885-4e37-4ffb-9cd5-9b862d396c8f
+    m_targetVariableName: 'null: null'
+    m_intValue: 0
+    m_floatValue: 0
+    m_stringValue: 
+    m_boolValue: 0
 --- !u!4 &405457389
 Transform:
   m_ObjectHideFlags: 0

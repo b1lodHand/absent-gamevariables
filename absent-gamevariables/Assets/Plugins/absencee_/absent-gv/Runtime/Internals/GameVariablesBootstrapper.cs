@@ -1,6 +1,6 @@
 using com.absence.variablebanks;
 using com.absence.variablebanks.internals;
-using com.absence.variablesystem;
+using com.absence.variablesystem.banksystembase;
 using UnityEngine;
 
 namespace com.absence.gamevariables.internals

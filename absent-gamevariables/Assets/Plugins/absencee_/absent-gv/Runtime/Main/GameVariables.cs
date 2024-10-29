@@ -1,4 +1,5 @@
-using com.absence.variablesystem;
+using com.absence.variablesystem.banksystembase;
+using com.absence.variablesystem.internals;
 using System;
 using UnityEngine;
 
@@ -49,7 +50,6 @@ namespace com.absence.gamevariables
         public static VariableBank GetRuntimeBank()
         {
             if (!Application.isPlaying) throw new Exception("You can get GameVariables' bank only in play mode. Use GameVariables.EditorBankGuid instead.");
-            if (m_bank == null) throw new Exception("GameVariables was not initialized successfully.");
 
             return m_bank;
         }

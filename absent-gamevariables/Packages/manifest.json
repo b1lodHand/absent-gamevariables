@@ -2,6 +2,7 @@
   "dependencies": {
     "com.absence.savesystem": "https://github.com/b1lodHand/absent-saves.git",
     "com.absence.variablesystem": "https://github.com/b1lodHand/absent-variables.git",
+    "com.unity.addressables": "1.22.3",
     "com.unity.collab-proxy": "2.5.1",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.31",

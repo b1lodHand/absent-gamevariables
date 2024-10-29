@@ -1,7 +1,7 @@
 using com.absence.gamevariables.internals;
-using com.absence.variablesystem;
-using com.absence.variablesystem.editor;
-using System;
+using com.absence.variablebanks.editor;
+using com.absence.variablesystem.banksystembase;
+using com.absence.variablesystem.banksystembase.editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -138,7 +138,12 @@ namespace com.absence.gamevariables.editor
 
         private static void DestroyDefaultBank()
         {
-            AssetDatabase.DeleteAsset(Constants.GAMEVARIABLES_BANK_PATH);
+#if ABSENT_VB_ADDRESSABLES
+            AssetDatabase.DeleteAsset(Constants.ADDRESSABLES_FULL_PATH);
+#else
+            AssetDatabase.DeleteAsset(Constants.RESOURCES_FULL_PATH);
+#endif
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             VariableBankDatabase.Refresh();
@@ -174,27 +179,49 @@ namespace com.absence.gamevariables.editor
 
         private static void CreateDefaultBank()
         {
-            VariableBank bankCreated = ScriptableObject.CreateInstance<VariableBank>();
-            bankCreated.name = Constants.GAMEVARIABLES_BANK_NAME;
+            string path;
 
-            if (!AssetDatabase.IsValidFolder(Constants.RESOURCES_PATH)) AssetDatabase.CreateFolder("Assets", "Resources");
+#if ABSENT_VB_ADDRESSABLES
+            if (!AssetDatabase.IsValidFolder(Constants.ADDRESSABLES_PATH))
+                AssetDatabase.CreateFolder("Assets", "Scriptables");
 
-            if (!AssetDatabase.IsValidFolder($"{Constants.RESOURCES_PATH}/{Constants.GAMEVARIABLES_FOLDER_NAME}"))
-                AssetDatabase.CreateFolder(Constants.RESOURCES_PATH, Constants.GAMEVARIABLES_FOLDER_NAME);
+            if (!AssetDatabase.IsValidFolder($"{Constants.ADDRESSABLES_PATH}/{Constants.SUBFOLDER_NAME}"))
+                AssetDatabase.CreateFolder(Constants.ADDRESSABLES_PATH, Constants.SUBFOLDER_NAME);
 
-            AssetDatabase.CreateAsset(bankCreated, Constants.GAMEVARIABLES_BANK_PATH);
-            AssetDatabase.SetLabels(bankCreated, new string[] { "GameVariables" });
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+            path = Constants.ADDRESSABLES_FULL_PATH;
+            VariableBankCreationHandler.CreateVariableBankAtPath(path, false, true, ApplyCreation);
+#else
+            if (!AssetDatabase.IsValidFolder(Constants.RESOURCES_PATH)) 
+                AssetDatabase.CreateFolder("Assets", "Resources");
 
-            EditorPrefs.SetString(Constants.GAMEVARIABLES_GUID_PREF_NAME, bankCreated.Guid);
-            GameVariables.EditorBankGuid = bankCreated.Guid;
+            if (!AssetDatabase.IsValidFolder($"{Constants.RESOURCES_PATH}/{Constants.SUBFOLDER_NAME}"))
+                AssetDatabase.CreateFolder(Constants.RESOURCES_PATH, Constants.SUBFOLDER_NAME);
 
-            bankCreated.ForExternalUse = false;
+            path = Constants.RESOURCES_FULL_PATH;
+            VariableBankCreationHandler.CreateVariableBankAtPath(path, false, false, ApplyCreation);
+#endif
 
-            VariableBankDatabase.Refresh();
+            return;
 
-            m_targetBank = bankCreated;
+            void ApplyCreation(VariableBank bankCreated, bool success) 
+            {
+                if (!success)
+                {
+                    VariableBankDatabase.Refresh();
+                    m_targetBank = null;
+                }
+
+                AssetDatabase.SetLabels(bankCreated, new string[] { "GameVariables" });
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+                EditorPrefs.SetString(Constants.GAMEVARIABLES_GUID_PREF_NAME, bankCreated.Guid);
+                GameVariables.EditorBankGuid = bankCreated.Guid;
+
+                VariableBankDatabase.Refresh();
+
+                m_targetBank = bankCreated;
+            }
         }
     }
 }

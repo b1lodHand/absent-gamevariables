@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f0ae5381da9e45844ab3752144337fc3
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: d1b08cb0e122e7244a50cf4171f03d94
+    m_Address: Assets/Scriptables/VariableBanks/GameVariables.asset
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - variable-banks
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8aee27614c0774343a0cd6ae7cb5b18c, type: 2}
   m_SchemaSet:

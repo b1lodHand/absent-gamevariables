@@ -138,20 +138,34 @@ namespace com.absence.gamevariables.editor
 
         private static void DestroyDefaultBank()
         {
-#if ABSENT_VB_ADDRESSABLES
-            AssetDatabase.DeleteAsset(Constants.ADDRESSABLES_FULL_PATH);
-#else
-            AssetDatabase.DeleteAsset(Constants.RESOURCES_FULL_PATH);
-#endif
+            string targetGuid = EditorPrefs.GetString(Constants.GAMEVARIABLES_GUID_PREF_NAME);
+            VariableBank bankToDestroy = VariableBankDatabase.GetBankIfExists(targetGuid);
+
+            if (bankToDestroy == null)
+            {
+                CleanUp();
+                return;
+            }
+
+            string path = AssetDatabase.GetAssetPath(bankToDestroy);
+
+            AssetDatabase.DeleteAsset(path);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             VariableBankDatabase.Refresh();
 
-            EditorPrefs.SetString(Constants.GAMEVARIABLES_GUID_PREF_NAME, string.Empty);
-            GameVariables.EditorBankGuid = string.Empty;
-            m_targetBank = null;
-            m_bankEditor = null;
+            CleanUp();
+
+            return;
+
+            void CleanUp()
+            {
+                EditorPrefs.SetString(Constants.GAMEVARIABLES_GUID_PREF_NAME, string.Empty);
+                GameVariables.EditorBankGuid = string.Empty;
+                m_targetBank = null;
+                m_bankEditor = null;
+            }
         }
 
         private static void TryToFindDefaultBank()
@@ -159,10 +173,17 @@ namespace com.absence.gamevariables.editor
             string targetGuid = EditorPrefs.GetString(Constants.GAMEVARIABLES_GUID_PREF_NAME);
             if (GameVariables.EditorBankGuid != targetGuid) GameVariables.EditorBankGuid = targetGuid;
 
-            if (string.IsNullOrWhiteSpace(targetGuid)) return;
+            VariableBank foundBank = null;
 
-            VariableBankDatabase.Refresh();
-            VariableBank foundBank = VariableBankDatabase.GetBankIfExists(targetGuid);
+            if (string.IsNullOrWhiteSpace(targetGuid))
+            {
+                AssetDatabase.FindAssets("l:GameVariables")
+            }
+            else
+            {
+                VariableBankDatabase.Refresh();
+                foundBank = VariableBankDatabase.GetBankIfExists(targetGuid);
+            }
 
             if (foundBank != null)
             {

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_comparers:
   - m_comparisonType: 2
-    m_targetBankGuid: 7edf8885-4e37-4ffb-9cd5-9b862d396c8f
+    m_targetBankGuid: ac71df1c-f531-4c75-b2c7-8c95b35771aa
     m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_boolValue: 0
   m_setters:
   - m_setType: 0
-    m_targetBankGuid: 7edf8885-4e37-4ffb-9cd5-9b862d396c8f
+    m_targetBankGuid: ac71df1c-f531-4c75-b2c7-8c95b35771aa
     m_targetVariableName: 'null: null'
     m_intValue: 0
     m_floatValue: 0
